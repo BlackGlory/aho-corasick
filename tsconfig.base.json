@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2019"
+    "target": "ESNext"
   , "module": "CommonJS"
   , "strict": true
+  , "esModuleInterop": true
   , "noUnusedLocals": true
   , "noUnusedParameters": true
   , "baseUrl": "."
