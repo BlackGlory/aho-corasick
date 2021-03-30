@@ -26,6 +26,7 @@ class AhoCorasick {
   )
 
   isMatch(text: string): boolean
+  findAll(text: string): string[]
 }
 ```
 

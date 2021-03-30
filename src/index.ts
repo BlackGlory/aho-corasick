@@ -9,4 +9,5 @@ export type IAhoCorasickConstructor =
 
 export interface IAhoCorasick {
   isMatch(text: string): boolean
+  findAll(text: string): string[]
 }

@@ -1,6 +1,17 @@
 import { AhoCorasick } from '@src/index'
 
 describe('AhoCorasick', () => {
+  describe('findAll(text: string): string[]', () => {
+    it('return all matches', () => {
+      const patterns = ['tell', 'your', 'world']
+      const ac = new AhoCorasick(patterns, { caseSensitive: true })
+
+      const result = ac.findAll('tell my world')
+
+      expect(result).toEqual(['tell', 'world'])
+    })
+  })
+
   describe('isMatch(text: string): boolean', () => {
     describe('caseSensitive: true', () => {
       describe('match', () => {

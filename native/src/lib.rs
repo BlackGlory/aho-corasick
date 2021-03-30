@@ -47,6 +47,34 @@ declare_types! {
 
             Ok(cx.boolean(result).upcast())
         }
+
+        method findAll(mut cx) {
+            let this = cx.this();
+            let text = cx.argument::<JsString>(0)?
+              .downcast::<JsString>()
+              .or_throw(&mut cx)?
+              .value();
+
+            let result = {
+                let guard = cx.lock();
+                let mut matches = vec![];
+                let ac = &this.borrow(&guard).instance;
+                for mat in ac.find_iter(&text) {
+                    matches.push(text[mat.start()..mat.end()].to_string());
+                }
+                matches.sort_unstable();
+                matches.dedup();
+                matches
+            };
+
+            let js_array = JsArray::new(&mut cx, result.len() as u32);
+            for (i, obj) in result.iter().enumerate() {
+                let js_string = cx.string(obj);
+                js_array.set(&mut cx, i as u32, js_string).unwrap();
+            }
+
+            Ok(js_array.as_value(&mut cx))
+        }
     }
 }
 
