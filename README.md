@@ -28,3 +28,10 @@ class AhoCorasick {
   isMatch(text: string): boolean
 }
 ```
+
+## benchmark
+
+|              | compile time | compile RSS | match time | match RSS | match RSS peak |
+|--------------|--------------|-------------|------------|-----------|----------------|
+| aho-corasick | 12ms         | +7.96MB     | 11595ms    | +18MB     | 62.3MB         |
+| fastscan     | 48ms         | +7.67MB     | 18576ms    | +39.2MB   | 84.7MB         |
