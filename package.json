@@ -8,7 +8,11 @@
     "native"
   ],
   "files": [
-    "lib"
+    "lib",
+    "native/src",
+    "native/build.rs",
+    "native/Cargo.lock",
+    "native/Cargo.toml"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

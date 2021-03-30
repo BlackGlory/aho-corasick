@@ -29,5 +29,5 @@ export function measure(
   const elapsedTime = endMark.timestamp - startMark.timestamp
   const rssChanges = endMark.rss - startMark.rss
 
-  console.log(`${measureName} ${elapsedTime / 1000n / 1000n}ms ${prettyBytes(rssChanges)}`)
+  console.log(`${measureName}: ${elapsedTime / 1000n / 1000n}ms ${prettyBytes(rssChanges)}`)
 }

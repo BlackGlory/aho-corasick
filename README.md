@@ -29,7 +29,7 @@ class AhoCorasick {
 }
 ```
 
-## benchmark
+## Benchmark
 
 |              | compile time | compile RSS | match time | match RSS | match RSS peak |
 |--------------|--------------|-------------|------------|-----------|----------------|
