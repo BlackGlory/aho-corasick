@@ -19,14 +19,14 @@ declare_types! {
                 .collect::<Result<Vec<_>, _>>()?;
 
             let options = cx.argument::<JsObject>(1)?;
-            let case_ensitive = options
+            let case_sensitive = options
                 .get(&mut cx, "caseSensitive")?
                 .downcast::<JsBoolean>()
                 .or_throw(&mut cx)?
                 .value();
 
             let ac = AhoCorasickBuilder::new()
-                .ascii_case_insensitive(!case_ensitive)
+                .ascii_case_insensitive(!case_sensitive)
                 .build(patterns);
 
             Ok(AhoCorasickBox { instance: Box::new(ac) })
@@ -60,7 +60,7 @@ declare_types! {
                 let mut matches = vec![];
                 let ac = &this.borrow(&guard).instance;
                 for mat in ac.find_iter(&text) {
-                    matches.push(text[mat.start()..mat.end()].to_string());
+                    matches.push(&text[mat.start()..mat.end()]);
                 }
                 matches.sort_unstable();
                 matches.dedup();
