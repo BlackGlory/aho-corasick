@@ -68,10 +68,12 @@ declare_types! {
             };
 
             let js_array = JsArray::new(&mut cx, result.len() as u32);
-            for (i, obj) in result.iter().enumerate() {
-                let js_string = cx.string(obj);
-                js_array.set(&mut cx, i as u32, js_string).unwrap();
-            }
+            result.iter()
+                .enumerate()
+                .for_each(|(i, obj)| {
+                    let js_string = cx.string(obj);
+                    js_array.set(&mut cx, i as u32, js_string).unwrap();
+                });
 
             Ok(js_array.as_value(&mut cx))
         }
