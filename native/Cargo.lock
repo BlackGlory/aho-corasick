@@ -4,25 +4,25 @@
 name = "aho-corasick"
 version = "0.1.0"
 dependencies = [
- "aho-corasick 0.7.15",
+ "aho-corasick 0.7.18",
  "neon",
  "neon-build",
 ]
 
 [[package]]
 name = "aho-corasick"
-version = "0.7.15"
+version = "0.7.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7404febffaa47dac81aa44dba71523c9d069b1bdc50a77db41195149e17f68e5"
+checksum = "1e37cfd5e7657ada45f742d6e99ca5788580b5c529dc78faf11ece6dc702656f"
 dependencies = [
  "memchr",
 ]
 
 [[package]]
 name = "cc"
-version = "1.0.67"
+version = "1.0.68"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e3c69b077ad434294d3ce9f1f6143a2a4b89a8a2d54ef813d85003a4fd1137fd"
+checksum = "4a72c244c1ff497a746a7e1fb3d14bd08420ecda70c8f25c7112f2781652d787"
 
 [[package]]
 name = "cfg-if"
@@ -38,15 +38,15 @@ checksum = "697c714f50560202b1f4e2e09cd50a421881c83e9025db75d15f276616f04f40"
 
 [[package]]
 name = "memchr"
-version = "2.3.4"
+version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ee1c47aaa256ecabcaea351eae4a9b01ef39ed810004e298d2511ed284b1525"
+checksum = "b16bd47d9e329435e309c58469fe0791c2d0d1ba96ec0954152a5ae2b04387dc"
 
 [[package]]
 name = "neon"
-version = "0.8.0"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bcdbfbcfbb5ae2ffc7281dfe0b118374bd696369096afc252f26c0b8e7a02e91"
+checksum = "05c562b89fa7f9707f02056abe25a37ec290ca4a4f1596edbd7aa1aa7b87af1d"
 dependencies = [
  "cslice",
  "neon-build",
@@ -57,18 +57,18 @@ dependencies = [
 
 [[package]]
 name = "neon-build"
-version = "0.8.0"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a529aacddb4b04e9c0a0d5e67478d9aad331c748cbbf6d1657f6d167b3fac37a"
+checksum = "f9c55f6d310757b9fe6cd96a376609548a252da31828f935a7f59106533a89e9"
 dependencies = [
  "neon-sys",
 ]
 
 [[package]]
 name = "neon-runtime"
-version = "0.8.0"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7dbec080794ea0939cbd4fa262e749068fd36b18bbb65b6b810e72ae98fea789"
+checksum = "be313e6cf11f469653ee1b137b9203f5d604f2b496d423e96c5e251b51eead03"
 dependencies = [
  "cfg-if",
  "neon-sys",
@@ -77,9 +77,9 @@ dependencies = [
 
 [[package]]
 name = "neon-sys"
-version = "0.8.0"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed97a0dce4e4666c57b15e4cd94c7d3cf1405f58383a302b989e6e9e0f5cac5d"
+checksum = "fe7311a8aca212437bb95c4e5eb94b19a4c360440db118021cd90c3d63387613"
 dependencies = [
  "cc",
  "regex",
@@ -87,20 +87,20 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.4.5"
+version = "1.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "957056ecddbeba1b26965114e191d2e8589ce74db242b6ea25fc4062427a5c19"
+checksum = "d07a8629359eb56f1e2fb1652bb04212c072a87ba68546a04065d525673ac461"
 dependencies = [
- "aho-corasick 0.7.15",
+ "aho-corasick 0.7.18",
  "memchr",
  "regex-syntax",
 ]
 
 [[package]]
 name = "regex-syntax"
-version = "0.6.23"
+version = "0.6.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24d5f089152e60f62d28b835fbff2cd2e8dc0baf1ac13343bef92ab7eed84548"
+checksum = "f497285884f3fcff424ffc933e56d7cbca511def0c9831a7f9b5f6153e3cc89b"
 
 [[package]]
 name = "semver"
