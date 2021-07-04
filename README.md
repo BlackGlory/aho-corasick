@@ -34,5 +34,5 @@ class AhoCorasick {
 
 |              | compile time | compile RSS | match time | match RSS | match RSS peak |
 |--------------|--------------|-------------|------------|-----------|----------------|
-| aho-corasick | 12ms         | +7.96MB     | 11595ms    | +18MB     | 62.3MB         |
-| fastscan     | 48ms         | +7.67MB     | 18576ms    | +39.2MB   | 84.7MB         |
+| aho-corasick | 3ms          | +2.08MB     | 19969ms    | +26.3MB   | 81.1MB         |
+| fastscan     | 14ms         | +1.35MB     | 29600ms    | +37.0MB   | 90.0MB         |

@@ -20,7 +20,7 @@
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
   "scripts": {
-    "install": "neon build",
+    "install": "neon build --release && rimraf native/target",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --coverage --config jest.config.js",
