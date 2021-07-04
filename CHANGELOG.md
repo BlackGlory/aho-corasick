@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/BlackGlory/aho-corasick/compare/v0.1.3...v0.1.5) (2021-07-04)
+
+
+### Features
+
+* use release flag and remove native/target after installing ([61e7308](https://github.com/BlackGlory/aho-corasick/commit/61e73082f45bf10193d5d2b7445c90f1b4d47c27))
+
 ### [0.1.4](https://github.com/BlackGlory/aho-corasick/compare/v0.1.3...v0.1.4) (2021-06-22)
 
 ### [0.1.3](https://github.com/BlackGlory/aho-corasick/compare/v0.1.2...v0.1.3) (2021-05-14)
