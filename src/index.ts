@@ -1,20 +1,20 @@
 const addon = require('../native')
 
 export class AhoCorasick {
-  private box: any
+  #instance: unknown
 
   constructor(
     patterns: string[]
   , options: { caseSensitive: boolean }
   ) {
-    this.box = addon.createAhoCorasick(patterns, options)
+    this.#instance = addon.createAhoCorasick(patterns, options)
   }
 
   isMatch(text: string): boolean {
-    return addon.isMatch(this.box, text)
+    return addon.isMatch(this.#instance, text)
   }
 
   findAll(text: string): string[] {
-    return addon.findAll(this.box, text)
+    return addon.findAll(this.#instance, text)
   }
 }
