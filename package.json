@@ -10,7 +10,6 @@
   "files": [
     "lib",
     "native/src",
-    "native/build.rs",
     "native/Cargo.lock",
     "native/Cargo.toml"
   ],

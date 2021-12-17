@@ -5,82 +5,81 @@ pub struct AhoCorasickBox {
     instance: Box<AhoCorasick>
 }
 
-declare_types! {
-    pub class JsAhoCorasick for AhoCorasickBox {
-        init(mut cx) {
-            let patterns = cx.argument::<JsArray>(0)?
-                .to_vec(&mut cx)?
-                .into_iter()
-                .map(|v| {
-                    v.downcast::<JsString>()
-                        .or_throw(&mut cx)
-                        .map(|v| v.value())
-                })
-                .collect::<Result<Vec<_>, _>>()?;
+impl Finalize for AhoCorasickBox {}
 
-            let options = cx.argument::<JsObject>(1)?;
-            let case_sensitive = options
-                .get(&mut cx, "caseSensitive")?
-                .downcast::<JsBoolean>()
-                .or_throw(&mut cx)?
-                .value();
+fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<AhoCorasickBox>> {
+    let patterns = cx.argument::<JsArray>(0)?
+        .to_vec(&mut cx)?
+        .into_iter()
+        .map(|v| {
+            v.downcast::<JsString, _>(&mut cx)
+                .or_throw(&mut cx)
+                .map(|v| v.value(&mut cx))
+        })
+        .collect::<Result<Vec<_>, _>>()?;
 
-            let ac = AhoCorasickBuilder::new()
-                .ascii_case_insensitive(!case_sensitive)
-                .build(patterns);
+    let options = cx.argument::<JsObject>(1)?;
+    let case_sensitive = options
+        .get(&mut cx, "caseSensitive")?
+        .downcast::<JsBoolean, _>(&mut cx)
+        .or_throw(&mut cx)?
+        .value(&mut cx);
 
-            Ok(AhoCorasickBox { instance: Box::new(ac) })
-        }
+    let ac = AhoCorasickBuilder::new()
+        .ascii_case_insensitive(!case_sensitive)
+        .build(patterns);
 
-        method isMatch(mut cx) {
-            let this = cx.this();
-            let text = cx.argument::<JsString>(0)?
-              .downcast::<JsString>()
-              .or_throw(&mut cx)?
-              .value();
-
-            let result = {
-                let guard = cx.lock();
-                let ac = &this.borrow(&guard).instance;
-                ac.is_match(text)
-            };
-
-            Ok(cx.boolean(result).upcast())
-        }
-
-        method findAll(mut cx) {
-            let this = cx.this();
-            let text = cx.argument::<JsString>(0)?
-              .downcast::<JsString>()
-              .or_throw(&mut cx)?
-              .value();
-
-            let result = {
-                let guard = cx.lock();
-                let mut matches = vec![];
-                let ac = &this.borrow(&guard).instance;
-                for mat in ac.find_iter(&text) {
-                    matches.push(&text[mat.start()..mat.end()]);
-                }
-                matches.sort_unstable();
-                matches.dedup();
-                matches
-            };
-
-            let js_array = JsArray::new(&mut cx, result.len() as u32);
-            result.iter()
-                .enumerate()
-                .for_each(|(i, obj)| {
-                    let js_string = cx.string(obj);
-                    js_array.set(&mut cx, i as u32, js_string).unwrap();
-                });
-
-            Ok(js_array.as_value(&mut cx))
-        }
-    }
+    Ok(cx.boxed(AhoCorasickBox { instance: Box::new(ac) }))
 }
 
-register_module!(mut cx, {
-    cx.export_class::<JsAhoCorasick>("AhoCorasick")?;
+fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
+    let ac_box = cx.argument::<JsBox<AhoCorasickBox>>(0)?;
+    let text = cx.argument::<JsString>(1)?
+        .downcast::<JsString, _>(&mut cx)
+        .or_throw(&mut cx)?
+        .value(&mut cx);
+
+    let result = {
+        let ac = &ac_box.instance;
+        ac.is_match(text)
+    };
+
+    Ok(cx.boolean(result))
+}
+
+fn find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
+    let ac_box = cx.argument::<JsBox<AhoCorasickBox>>(0)?;
+    let text = cx.argument::<JsString>(1)?
+        .downcast::<JsString, _>(&mut cx)
+        .or_throw(&mut cx)?
+        .value(&mut cx);
+
+    let result = {
+        let mut matches = vec![];
+        let ac = &ac_box.instance;
+        for mat in ac.find_iter(&text) {
+            matches.push(&text[mat.start()..mat.end()]);
+        }
+        matches.sort_unstable();
+        matches.dedup();
+        matches
+    };
+
+    let js_array = JsArray::new(&mut cx, result.len() as u32);
+    result.iter()
+        .enumerate()
+        .for_each(|(i, obj)| {
+            let js_string = cx.string(obj);
+            js_array.set(&mut cx, i as u32, js_string).unwrap();
+        });
+
+    Ok(js_array)
+}
+
+#[neon::main]
+fn main(mut cx: ModuleContext) -> NeonResult<()> {
+    cx.export_function("createAhoCorasick", create_aho_corasick)?;
+    cx.export_function("isMatch", is_match)?;
+    cx.export_function("findAll", find_all)?;
     Ok(())
-});
+}

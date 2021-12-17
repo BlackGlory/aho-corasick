@@ -1,13 +1,20 @@
 const addon = require('../native')
 
-export const AhoCorasick = addon.AhoCorasick as IAhoCorasickConstructor
+export class AhoCorasick {
+  private box: any
 
-export type IAhoCorasickOptions = { caseSensitive: boolean }
+  constructor(
+    patterns: string[]
+  , options: { caseSensitive: boolean }
+  ) {
+    this.box = addon.createAhoCorasick(patterns, options)
+  }
 
-export type IAhoCorasickConstructor =
-  new (patterns: string[], options: IAhoCorasickOptions) => IAhoCorasick
+  isMatch(text: string): boolean {
+    return addon.isMatch(this.box, text)
+  }
 
-export interface IAhoCorasick {
-  isMatch(text: string): boolean
-  findAll(text: string): string[]
+  findAll(text: string): string[] {
+    return addon.findAll(this.box, text)
+  }
 }

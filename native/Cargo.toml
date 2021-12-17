@@ -3,7 +3,6 @@ name = "aho-corasick"
 version = "0.1.0"
 authors = ["BlackGlory <woshenmedoubuzhidao@blackglory.me>"]
 license = "MIT"
-build = "build.rs"
 edition = "2018"
 exclude = ["artifacts.json", "index.node"]
 
@@ -12,8 +11,12 @@ name = "aho_corasick"
 crate-type = ["cdylib"]
 
 [build-dependencies]
-neon-build = "0.8.0"
+neon-build = "0.9.1"
 
 [dependencies]
-neon = "0.8.0"
 aho-corasick = "0.7"
+
+[dependencies.neon]
+version = "0.9.1"
+default-features = false
+features = ["napi-4"]
