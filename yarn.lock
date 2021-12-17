@@ -2354,13 +2354,13 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-extra-filesystem@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/extra-filesystem/-/extra-filesystem-0.4.0.tgz#be289cd1c0122669e12242fd8243db38c40e5e54"
-  integrity sha512-lbpnum6HpPLlyyyCcnzwOXrwkRlRe+htHz1PM+oDSqlNiG9Alepw9gJ6xZe4hkoJdLUkI37E2v03wO+egndcuQ==
+extra-filesystem@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/extra-filesystem/-/extra-filesystem-0.4.1.tgz#3887cdfbfe323dff27481cf78cf8d66364cb3e3b"
+  integrity sha512-H1pKoR5E0P0rgyhg+/h5/cfD//4ADcS2z7LZRNyAupmIamnHo+bwj7lV3w67Tkb69uEZ1DmU2BBsw9i2+qmyfg==
   dependencies:
     "@blackglory/pass" "^0.1.0"
-    extra-promise "^0.20.0"
+    extra-promise "^0.21.0"
     fs-extra "^10.0.0"
     tmp-promise "^3.0.3"
 
@@ -2380,10 +2380,10 @@ extra-lazy@^0.1.0:
   dependencies:
     lodash.once "^4.1.1"
 
-extra-promise@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/extra-promise/-/extra-promise-0.20.0.tgz#28ebb6285a7ff187b280f58011d66532c75281a1"
-  integrity sha512-i+x315uLOeHv6ofJu4I3VS9yEohQyKAEsN4HTFO2MmkzZOa7VKVFlcKvgPD9NbFBFB15DZQFMxkB6z3EaoLBOg==
+extra-promise@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/extra-promise/-/extra-promise-0.21.0.tgz#855d0a34d344c7b0bd82f9866ee526367c1770b1"
+  integrity sha512-yPJat8oubkp+sK3ONrsIJ651eN1eGsKJY9+valfiY5ihugjpB+L3gWG7/iGiQZgkIZT4i2N71YMA9itLTWgfvw==
   dependencies:
     "@blackglory/errors" "^1.1.2"
     "@blackglory/go" "^0.1.1"
