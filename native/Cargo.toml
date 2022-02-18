@@ -14,7 +14,7 @@ crate-type = ["cdylib"]
 neon-build = "0.9.1"
 
 [dependencies]
-aho-corasick = "0.7"
+aho-corasick = "0.7.18"
 
 [dependencies.neon]
 version = "0.9.1"
