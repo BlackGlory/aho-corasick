@@ -21,9 +21,7 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<AhoCorasickBox
 
     let options = cx.argument::<JsObject>(1)?;
     let case_sensitive = options
-        .get(&mut cx, "caseSensitive")?
-        .downcast::<JsBoolean, _>(&mut cx)
-        .or_throw(&mut cx)?
+        .get::<JsBoolean, _, _>(&mut cx, "caseSensitive")?
         .value(&mut cx);
 
     let ac = AhoCorasickBuilder::new()

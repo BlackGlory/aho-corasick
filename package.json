@@ -62,7 +62,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "neon-cli": "^0.9.1",
+    "neon-cli": "^0.10.0",
     "rimraf": "^3.0.2"
   }
 }
