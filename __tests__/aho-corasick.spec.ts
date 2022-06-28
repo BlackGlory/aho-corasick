@@ -2,13 +2,30 @@ import { AhoCorasick } from '@src/index'
 
 describe('AhoCorasick', () => {
   describe('findAll(text: string): string[]', () => {
-    it('return all matches', () => {
-      const patterns = ['tell', 'your', 'world']
-      const ac = new AhoCorasick(patterns, { caseSensitive: true })
+    describe('caseSensitive: true', () => {
+      it('return overlapping matches', () => {
+        const patterns = ['a', 'ab', 'BC', 'bcd']
+        const ac = new AhoCorasick(patterns, { caseSensitive: true })
 
-      const result = ac.findAll('tell my world')
+        const result1 = ac.findAll('abcd')
+        const result2 = ac.findAll('ABCD')
 
-      expect(result).toEqual(['tell', 'world'])
+        expect(result1).toEqual(['a', 'ab', 'bcd'])
+        expect(result2).toEqual(['BC'])
+      })
+    })
+
+    describe('caseSensitive: false', () => {
+      it('return overlapping matches', () => {
+        const patterns = ['a', 'ab', 'BC', 'bcd']
+        const ac = new AhoCorasick(patterns, { caseSensitive: false })
+
+        const result1 = ac.findAll('abcd')
+        const result2 = ac.findAll('ABCD')
+
+        expect(result1).toEqual(['a', 'ab', 'bc', 'bcd'])
+        expect(result2).toEqual(['A', 'AB', 'BC', 'BCD'])
+      })
     })
   })
 

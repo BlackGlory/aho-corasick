@@ -71,3 +71,7 @@ native/artifacts.json
 **/*~
 **/node_modules
 **/.DS_Store
+
+## Benchmark
+sample.txt
+patterns.txt
