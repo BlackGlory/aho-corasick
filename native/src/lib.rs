@@ -1,4 +1,4 @@
-use daachorse::DoubleArrayAhoCorasick;
+use daachorse::charwise::CharwiseDoubleArrayAhoCorasick as DoubleArrayAhoCorasick;
 use neon::prelude::*;
 
 pub struct Instance {
