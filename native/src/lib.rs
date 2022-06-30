@@ -8,8 +8,8 @@ pub struct Instance {
 
 impl Finalize for Instance {}
 
-// createAhoCorasick(patterns: string[]): AhoCorasickBox
-fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
+// createAhoCorasick(patterns: string[], options: { caseSensitive: boolean }): AhoCorasickBox
+fn create_aho_corasick(mut cx: FunctionContext, ) -> JsResult<JsBox<Instance>> {
     let mut patterns = cx
         .argument::<JsArray>(0)?
         .to_vec(&mut cx)?
