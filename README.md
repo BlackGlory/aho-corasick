@@ -30,6 +30,6 @@ class AhoCorasick {
 ## Benchmark
 |                                  | Compilation  | Matching       | RSS peak |
 |----------------------------------|--------------|----------------|----------|
-| daachorse(charwise, from crates) | 12ms +4.37MB | 1317ms +11.2MB | 71.1MB   |
+| daachorse(charwise, from crates) | 11ms +2.94MB | 1289ms +9.64MB | 70.4MB   |
 | aho-corasick(NFA, from crates)   | 12ms +9.32MB | 1618ms +11.4MB | 77.2MB   |
-| fastscan(from npm)               | 60ms +6.82MB | 2657ms +26.1MB | 90.3MB   |
+| fastscan(from npm)               | 61ms +6.65MB | 2677ms +26.5MB | 90.7MB   |

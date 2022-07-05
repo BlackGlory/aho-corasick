@@ -2,7 +2,7 @@ use daachorse::charwise::CharwiseDoubleArrayAhoCorasick as DoubleArrayAhoCorasic
 use neon::prelude::*;
 
 pub struct Instance {
-    ac: Box<DoubleArrayAhoCorasick>,
+    ac: DoubleArrayAhoCorasick,
     case_sensitive: bool,
 }
 
@@ -35,7 +35,7 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
     let ac = DoubleArrayAhoCorasick::new(patterns).unwrap();
 
     Ok(cx.boxed(Instance {
-        ac: Box::new(ac),
+        ac,
         case_sensitive,
     }))
 }
