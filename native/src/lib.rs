@@ -27,7 +27,10 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
         .value(&mut cx);
 
     if !case_sensitive {
-        patterns = patterns.into_iter().map(|x| x.to_lowercase()).collect();
+        patterns = patterns
+            .into_iter()
+            .map(|x| x.to_lowercase())
+            .collect();
     }
     let ac = DoubleArrayAhoCorasick::new(patterns).unwrap();
 
@@ -84,10 +87,13 @@ fn find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
     matches.dedup();
 
     let js_array = JsArray::new(&mut cx, matches.len() as u32);
-    matches.into_iter().enumerate().for_each(|(i, obj)| {
-        let js_string = cx.string(obj);
-        js_array.set(&mut cx, i as u32, js_string).unwrap();
-    });
+    matches
+        .into_iter()
+        .enumerate()
+        .for_each(|(i, obj)| {
+            let js_string = cx.string(obj);
+            js_array.set(&mut cx, i as u32, js_string).unwrap();
+        });
 
     Ok(js_array)
 }
@@ -97,5 +103,6 @@ fn main(mut cx: ModuleContext) -> NeonResult<()> {
     cx.export_function("createAhoCorasick", create_aho_corasick)?;
     cx.export_function("isMatch", is_match)?;
     cx.export_function("findAll", find_all)?;
+
     Ok(())
 }
