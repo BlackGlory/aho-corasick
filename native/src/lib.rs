@@ -8,7 +8,10 @@ pub struct Instance {
 
 impl Finalize for Instance {}
 
-// createAhoCorasick(patterns: string[], options: { caseSensitive: boolean }): AhoCorasickBox
+// createAhoCorasick(
+//   patterns: string[]
+// , options: { caseSensitive: boolean }
+// ): NativeAhoCorasick
 fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
     let mut patterns = cx
         .argument::<JsArray>(0)?
@@ -40,7 +43,7 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
     }))
 }
 
-// isMatch(ac: AhoCorasickBox, text: string): boolean
+// isMatch(ac: NativeAhoCorasick, text: string): boolean
 fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
     let instance = &cx.argument::<JsBox<Instance>>(0)?;
     let ac = &instance.ac;
@@ -61,7 +64,7 @@ fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
     Ok(cx.boolean(result))
 }
 
-// findAll(ac: AhoCorasickBox, text: string): string[]
+// findAll(ac: NativeAhoCorasick, text: string): string[]
 fn find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
     let instance = &cx.argument::<JsBox<Instance>>(0)?;
     let ac = &instance.ac;

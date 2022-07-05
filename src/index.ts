@@ -1,7 +1,19 @@
-const addon = require('../native')
+type NativeAhoCorasick = unknown
+
+interface IAddon {
+  createAhoCorasick(
+    patterns: string[]
+  , options: { caseSensitive: boolean }
+  ): NativeAhoCorasick
+
+  isMatch(ac: NativeAhoCorasick, text: string): boolean
+  findAll(ac: NativeAhoCorasick, text: string): string[]
+}
+
+const addon: IAddon = require('../native')
 
 export class AhoCorasick {
-  private instance: unknown
+  private instance: NativeAhoCorasick
 
   constructor(
     patterns: string[]
