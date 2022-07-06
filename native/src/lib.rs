@@ -36,14 +36,15 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>
             .map(|x| x.to_lowercase())
             .collect();
     }
-    let ac = DoubleArrayAhoCorasick::new(
-        patterns
-    ).unwrap();
 
-    Ok(cx.boxed(JsAhoCorasick {
-        ac,
-        case_sensitive,
-    }))
+    match DoubleArrayAhoCorasick::new(patterns) {
+        Ok(ac) => Ok(cx.boxed(JsAhoCorasick {
+            ac,
+            case_sensitive,
+        })),
+        Err(err) => cx.throw_error(err.to_string())
+    }
+
 }
 
 // isMatch(ac: NativeAhoCorasick, text: string): boolean
