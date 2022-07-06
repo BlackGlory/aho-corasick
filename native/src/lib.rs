@@ -17,10 +17,10 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>
         .argument::<JsArray>(0)?
         .to_vec(&mut cx)?
         .into_iter()
-        .map(|v| {
-            v.downcast::<JsString, _>(&mut cx)
+        .map(|x| {
+            x.downcast::<JsString, _>(&mut cx)
                 .or_throw(&mut cx)
-                .map(|v| v.value(&mut cx))
+                .map(|x| x.value(&mut cx))
         })
         .collect::<Result<Vec<_>, _>>()?;
 
@@ -47,7 +47,7 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>
 
 // isMatch(ac: NativeAhoCorasick, text: string): boolean
 fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
-    let instance = &cx.argument::<JsBox<JsAhoCorasick>>(0)?;
+    let instance = cx.argument::<JsBox<JsAhoCorasick>>(0)?;
     let ac = &instance.ac;
     let case_sensitive = instance.case_sensitive;
 
@@ -68,7 +68,7 @@ fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
 
 // findAll(ac: NativeAhoCorasick, text: string): string[]
 fn find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
-    let instance = &cx.argument::<JsBox<JsAhoCorasick>>(0)?;
+    let instance = cx.argument::<JsBox<JsAhoCorasick>>(0)?;
     let ac = &instance.ac;
     let case_sensitive = instance.case_sensitive;
 
