@@ -91,7 +91,10 @@ fn find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
     Ok(js_array)
 }
 
-fn vec_string_to_js_array<'a>(cx: &mut FunctionContext<'a>, list: Vec<&str>) -> NeonResult<Handle<'a, JsArray>> {
+fn vec_string_to_js_array<'a>(
+    cx: &mut FunctionContext<'a>,
+    list: Vec<&str>
+) -> NeonResult<Handle<'a, JsArray>> {
     let result = JsArray::new(cx, list.len() as u32);
     for (i, val) in list.into_iter().enumerate() {
         let js_string = cx.string(val);
@@ -101,7 +104,10 @@ fn vec_string_to_js_array<'a>(cx: &mut FunctionContext<'a>, list: Vec<&str>) -> 
     Ok(result)
 }
 
-fn js_array_to_vec_string(cx: &mut FunctionContext, arr: Handle<JsArray>) -> NeonResult<Vec<String>> {
+fn js_array_to_vec_string(
+    cx: &mut FunctionContext,
+    arr: Handle<JsArray>,
+) -> NeonResult<Vec<String>> {
     let result = arr
         .to_vec(cx)?
         .into_iter()
@@ -115,7 +121,10 @@ fn js_array_to_vec_string(cx: &mut FunctionContext, arr: Handle<JsArray>) -> Neo
     Ok(result)
 }
 
-fn js_string_to_string(cx: &mut FunctionContext, val: Handle<JsString>) -> NeonResult<String> {
+fn js_string_to_string(
+    cx: &mut FunctionContext,
+    val: Handle<JsString>
+) -> NeonResult<String> {
     let result = val
         .downcast::<JsString, _>(cx)
         .or_throw(cx)?
