@@ -1,4 +1,4 @@
-import { AhoCorasick } from '@src/index'
+import { AhoCorasick } from '@src/aho-corasick'
 
 describe('AhoCorasick', () => {
   describe('findAll(text: string): string[]', () => {
