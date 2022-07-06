@@ -1,18 +1,18 @@
 use daachorse::charwise::CharwiseDoubleArrayAhoCorasick as DoubleArrayAhoCorasick;
 use neon::prelude::*;
 
-pub struct Instance {
+pub struct JsAhoCorasick {
     ac: DoubleArrayAhoCorasick,
     case_sensitive: bool,
 }
 
-impl Finalize for Instance {}
+impl Finalize for JsAhoCorasick {}
 
 // createAhoCorasick(
 //   patterns: string[]
 // , options: { caseSensitive: boolean }
 // ): NativeAhoCorasick
-fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
+fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>> {
     let mut patterns = cx
         .argument::<JsArray>(0)?
         .to_vec(&mut cx)?
@@ -35,9 +35,11 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
             .map(|x| x.to_lowercase())
             .collect();
     }
-    let ac = DoubleArrayAhoCorasick::new(patterns).unwrap();
+    let ac = DoubleArrayAhoCorasick::new(
+        patterns
+    ).unwrap();
 
-    Ok(cx.boxed(Instance {
+    Ok(cx.boxed(JsAhoCorasick {
         ac,
         case_sensitive,
     }))
@@ -45,7 +47,7 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<Instance>> {
 
 // isMatch(ac: NativeAhoCorasick, text: string): boolean
 fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
-    let instance = &cx.argument::<JsBox<Instance>>(0)?;
+    let instance = &cx.argument::<JsBox<JsAhoCorasick>>(0)?;
     let ac = &instance.ac;
     let case_sensitive = instance.case_sensitive;
 
@@ -66,7 +68,7 @@ fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
 
 // findAll(ac: NativeAhoCorasick, text: string): string[]
 fn find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
-    let instance = &cx.argument::<JsBox<Instance>>(0)?;
+    let instance = &cx.argument::<JsBox<JsAhoCorasick>>(0)?;
     let ac = &instance.ac;
     let case_sensitive = instance.case_sensitive;
 
