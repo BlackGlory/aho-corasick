@@ -19,9 +19,9 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "daachorse"
-version = "0.4.3"
+version = "1.0.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "048e6559119e79b1d2964ddc0afdaaf583af18b6e3e1ab09ee5fb5e0b83fe7a5"
+checksum = "9dee1cd6e1f1e56a73c6f35106a670659a0aaefac2c27f4771263a52971b9a1c"
 
 [[package]]
 name = "libloading"

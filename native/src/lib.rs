@@ -2,7 +2,7 @@ use daachorse::charwise::CharwiseDoubleArrayAhoCorasick as DoubleArrayAhoCorasic
 use neon::prelude::*;
 
 pub struct JsAhoCorasick {
-    ac: DoubleArrayAhoCorasick,
+    ac: DoubleArrayAhoCorasick<u8>,
     case_sensitive: bool,
 }
 

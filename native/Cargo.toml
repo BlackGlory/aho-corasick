@@ -14,7 +14,7 @@ crate-type = ["cdylib"]
 neon-build = "0.10.1"
 
 [dependencies]
-daachorse = "0.4.3"
+daachorse = "1.0.0-rc.1"
 
 [dependencies.neon]
 version = "0.10.1"
