@@ -1,33 +1,38 @@
 import prettyBytes from 'pretty-bytes'
+import { assert, isntUndefined } from '@blackglory/prelude'
 
-interface IEntry {
+interface IRecord {
   timestamp: bigint
   rss: number
 }
 
-const marks: { [label: string]: IEntry } = {}
+const labelToRecords = new Map<string, IRecord>()
 
 export function mark(label: string): void {
-  marks[label] = {
+  labelToRecords.set(label, {
     timestamp: process.hrtime.bigint()
   , rss: process.memoryUsage().rss
-  }
-}
-
-export function getRSS(): number {
-  return process.memoryUsage().rss
+  })
 }
 
 export function measure(
-  measureName: string
-, startMarkLabel: string
-, endMarkLabel: string
+  message: string
+, startLabel: string
+, endLabel: string
 ): void {
-  const startMark = marks[startMarkLabel]
-  const endMark = marks[endMarkLabel]
+  const startRecord = labelToRecords.get(startLabel)
+  const endRecord = labelToRecords.get(endLabel)
+  assert(isntUndefined(startRecord), 'startRecord should not be undefined')
+  assert(isntUndefined(endRecord), 'startRecord should not be undefined')
 
-  const elapsedTime = endMark.timestamp - startMark.timestamp
-  const rssChanges = endMark.rss - startMark.rss
+  const elapsedTime = endRecord.timestamp - startRecord.timestamp
+  const rssChanges = endRecord.rss - startRecord.rss
 
-  console.log(`${measureName}: ${elapsedTime / 1000n / 1000n}ms ${prettyBytes(rssChanges)}`)
+  console.log(
+    `${message}: ${elapsedTime / 1000n / 1000n}ms ${prettyBytes(rssChanges)}`
+  )
+}
+
+export function getHumanReadableRSS(): string {
+  return prettyBytes(process.memoryUsage().rss)
 }
