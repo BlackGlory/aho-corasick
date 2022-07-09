@@ -1,6 +1,4 @@
-import { IAddon, NativeAhoCorasick } from './types'
-
-const addon: IAddon = require('../native')
+import { NativeAhoCorasick, addon } from './addon'
 
 export class AhoCorasick {
   private instance: NativeAhoCorasick
