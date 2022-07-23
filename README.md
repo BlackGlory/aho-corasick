@@ -28,7 +28,7 @@ class AhoCorasick {
 ```
 
 ## Benchmark
-|                                 | Compilation  | Matching       | RSS    |
-|---------------------------------|--------------|----------------|--------|
-| daachorse(charwise) from crates | 17ms +4.74MB | 462ms +12.9MB  | 73.4MB |
-| fastscan(quick) from npm        | 58ms +6.12MB | 1323ms +28.1MB | 89.4MB |
+|                                 | Compilation  | Matching       | RSS     |
+|---------------------------------|--------------|----------------|---------|
+| daachorse(charwise) from crates | 16ms         | 38ms           | 99.3 MB |
+| fastscan(quick) from npm        | 15ms         | 114ms          | 105 MB  |

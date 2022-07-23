@@ -9,13 +9,13 @@ yarn tsc \
 echo '======================='
 echo 'benchmark: aho-corasick'
 echo '======================='
-node ./benches/benchmark-aho-corasick.js
+node --expose-gc ./benches/benchmark-aho-corasick.js
 
 echo ''
 
 echo '==================='
 echo 'benchmark: fastscan'
 echo '==================='
-node ./benches/benchmark-fastscan.js
+node --expose-gc ./benches/benchmark-fastscan.js
 
 rm ./benches/*.js

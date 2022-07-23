@@ -11,16 +11,26 @@ go(async () => {
   const text = await fs.readFile(patternsFilename, 'utf-8')
   const patterns = text.split('\n').filter(x => !!x)
 
-  mark('compilation:start')
-  const scanner = new FastScanner(patterns)
-  mark('compilation:end')
+  // pre-warm
+  for (let i = 100; i--;) {
+    const scanner = new FastScanner(patterns)
+    for await (const line of readFileLineByLine(sampleFilename)) {
+      scanner.search(line, { quick: true })
+    }
+  }
 
   let matched = 0
-  mark('matching:start')
-  for await (const line of readFileLineByLine(sampleFilename)) {
-    if (scanner.search(line, { quick: true }).length > 0) matched++
+  for (let i = 100; i--;) {
+    mark('compilation:start')
+    const scanner = new FastScanner(patterns)
+    mark('compilation:end')
+
+    mark('matching:start')
+    for await (const line of readFileLineByLine(sampleFilename)) {
+      if (scanner.search(line, { quick: true }).length > 0) matched++
+    }
+    mark('matching:end')
   }
-  mark('matching:end')
 
   measure('compilation', 'compilation:start', 'compilation:end')
   measure('matching', 'matching:start', 'matching:end')
