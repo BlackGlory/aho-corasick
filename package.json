@@ -18,6 +18,7 @@
   "repository": "git@github.com:BlackGlory/aho-corasick.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
+  "sideEffects": false,
   "scripts": {
     "install": "neon build --release && rimraf native/target",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
