@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
 import { go } from '@blackglory/go'
-import { AhoCorasick } from '../'
-import { mark, measure, getHumanReadableRSS } from './utils'
+import { FastScanner } from './fastscan'
+import { mark, measure, getHumanReadableRSS } from '../utils'
 import { readFileLineByLine } from 'extra-filesystem'
 
 const patternsFilename = './patterns.txt'
@@ -13,21 +13,21 @@ go(async () => {
 
   // pre-warm
   for (let i = 100; i--;) {
-    const ac = new AhoCorasick(patterns, { caseSensitive: true })
+    const scanner = new FastScanner(patterns)
     for await (const line of readFileLineByLine(sampleFilename)) {
-      ac.isMatch(line)
+      scanner.search(line, { quick: true })
     }
   }
 
   let matched = 0
   for (let i = 100; i--;) {
     mark('compilation:start')
-    const ac = new AhoCorasick(patterns, { caseSensitive: true })
+    const scanner = new FastScanner(patterns)
     mark('compilation:end')
 
     mark('matching:start')
     for await (const line of readFileLineByLine(sampleFilename)) {
-      if (ac.isMatch(line)) matched++
+      if (scanner.search(line, { quick: true }).length > 0) matched++
     }
     mark('matching:end')
   }

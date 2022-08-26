@@ -4,18 +4,18 @@ yarn tsc \
   --module commonjs \
   --target esnext \
   --esModuleInterop \
-  ./benches/*.ts
+  ./benches/**/*.ts
 
-echo '======================='
-echo 'benchmark: aho-corasick'
-echo '======================='
-node --expose-gc ./benches/benchmark-aho-corasick.js
+echo '-------------------'
+echo 'aho-corasick'
+echo '-------------------'
+node --expose-gc ./benches/aho-corasick/benchmark.js
 
 echo ''
 
-echo '==================='
-echo 'benchmark: fastscan'
-echo '==================='
-node --expose-gc ./benches/benchmark-fastscan.js
+echo '-------------------'
+echo 'fastscan'
+echo '-------------------'
+node --expose-gc ./benches/fastscan/benchmark.js
 
-rm ./benches/*.js
+rm ./benches/**/*.js
