@@ -62,7 +62,7 @@ typings/
 
 # Build
 lib
-benchmark/*.js
+benches/**/*.js
 
 # Neon
 native/target
