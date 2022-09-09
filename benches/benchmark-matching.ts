@@ -8,24 +8,11 @@ import { Benchmark } from 'extra-benchmark'
 const patternsFilename = './patterns.txt'
 const sampleFilename = './sample.txt'
 
-const benchmarkBuilding = new Benchmark('Building')
 const benchmarkMatching = new Benchmark('Matching')
 
 go(async () => {
   const text = await fs.readFile(patternsFilename, 'utf-8')
   const patterns = text.split('\n').filter(x => !!x)
-
-  benchmarkBuilding.addCase('fastscan', () => {
-    return () => {
-      new FastScanner(patterns)
-    }
-  })
-
-  benchmarkBuilding.addCase('aho-corasick', () => {
-    return () => {
-      new AhoCorasick(patterns, { caseSensitive: true })
-    }
-  })
 
   let fastScanMatched = 0
   benchmarkMatching.addCase('fastscan', () => {
@@ -52,13 +39,6 @@ go(async () => {
       }
     }
   })
-
-  console.log(`Benchmark: ${benchmarkBuilding.name}`)
-  for await (const result of benchmarkBuilding.run()) {
-    console.log(result)
-  }
-
-  console.log('')
 
   console.log(`Benchmark: ${benchmarkMatching.name}`)
   for await (const result of benchmarkMatching.run()) {
