@@ -51,6 +51,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "eslint": "^8.19.0",
+    "extra-benchmark": "^0.1.0",
     "extra-filesystem": "^0.4.2",
     "husky": "4",
     "iterable-operator": "^1.1.0",
