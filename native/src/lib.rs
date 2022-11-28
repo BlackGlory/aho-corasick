@@ -44,7 +44,6 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>
         })),
         Err(err) => cx.throw_error(err.to_string())
     }
-
 }
 
 // isMatch(ac: NativeAhoCorasick, text: string): boolean
