@@ -1,27 +1,27 @@
 use daachorse::charwise::CharwiseDoubleArrayAhoCorasick as DoubleArrayAhoCorasick;
 use neon::prelude::*;
 
-struct JsAhoCorasick {
+struct NativeAhoCorasick {
     ac: DoubleArrayAhoCorasick<u8>,
     case_sensitive: bool,
 }
 
-impl Finalize for JsAhoCorasick {}
+impl Finalize for NativeAhoCorasick {}
 
 #[neon::main]
 fn main(mut cx: ModuleContext) -> NeonResult<()> {
-    cx.export_function("createAhoCorasick", create_aho_corasick)?;
-    cx.export_function("isMatch", is_match)?;
-    cx.export_function("findAll", find_all)?;
+    cx.export_function("ahoCorasickCreate", aho_corasick_create)?;
+    cx.export_function("ahoCorasickIsMatch", aho_corasick_is_match)?;
+    cx.export_function("ahoCorasickFindAll", aho_corasick_find_all)?;
 
     Ok(())
 }
 
-// createAhoCorasick(
+// ahoCorasickCreate(
 //   patterns: string[]
 // , options: { caseSensitive: boolean }
 // ): NativeAhoCorasick
-fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>> {
+fn aho_corasick_create(mut cx: FunctionContext) -> JsResult<JsBox<NativeAhoCorasick>> {
     let patterns = cx.argument::<JsArray>(0)?;
     let mut patterns = js_array_to_vec_string(&mut cx, patterns)?;
 
@@ -38,7 +38,7 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>
     }
 
     match DoubleArrayAhoCorasick::new(patterns) {
-        Ok(ac) => Ok(cx.boxed(JsAhoCorasick {
+        Ok(ac) => Ok(cx.boxed(NativeAhoCorasick {
             ac,
             case_sensitive,
         })),
@@ -46,9 +46,9 @@ fn create_aho_corasick(mut cx: FunctionContext) -> JsResult<JsBox<JsAhoCorasick>
     }
 }
 
-// isMatch(ac: NativeAhoCorasick, text: string): boolean
-fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
-    let instance = cx.argument::<JsBox<JsAhoCorasick>>(0)?;
+// ahoCorasickIsMatch(ac: NativeAhoCorasick, text: string): boolean
+fn aho_corasick_is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
+    let instance = cx.argument::<JsBox<NativeAhoCorasick>>(0)?;
     let ac = &instance.ac;
     let case_sensitive = instance.case_sensitive;
 
@@ -64,9 +64,9 @@ fn is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
     Ok(cx.boolean(result))
 }
 
-// findAll(ac: NativeAhoCorasick, text: string): string[]
-fn find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
-    let instance = cx.argument::<JsBox<JsAhoCorasick>>(0)?;
+// ahoCorasickFindAll(ac: NativeAhoCorasick, text: string): string[]
+fn aho_corasick_find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
+    let instance = cx.argument::<JsBox<NativeAhoCorasick>>(0)?;
     let ac = &instance.ac;
     let case_sensitive = instance.case_sensitive;
 

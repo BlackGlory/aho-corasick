@@ -7,14 +7,14 @@ export class AhoCorasick {
     patterns: string[]
   , options: { caseSensitive: boolean }
   ) {
-    this.instance = addon.createAhoCorasick(patterns, options)
+    this.instance = addon.ahoCorasickCreate(patterns, options)
   }
 
   isMatch(text: string): boolean {
-    return addon.isMatch(this.instance, text)
+    return addon.ahoCorasickIsMatch(this.instance, text)
   }
 
   findAll(text: string): string[] {
-    return addon.findAll(this.instance, text)
+    return addon.ahoCorasickFindAll(this.instance, text)
   }
 }

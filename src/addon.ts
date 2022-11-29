@@ -1,13 +1,13 @@
 export type NativeAhoCorasick = unknown
 
 interface IAddon {
-  createAhoCorasick(
+  ahoCorasickCreate(
     patterns: string[]
   , options: { caseSensitive: boolean }
   ): NativeAhoCorasick
 
-  isMatch(ac: NativeAhoCorasick, text: string): boolean
-  findAll(ac: NativeAhoCorasick, text: string): string[]
+  ahoCorasickIsMatch(ac: NativeAhoCorasick, text: string): boolean
+  ahoCorasickFindAll(ac: NativeAhoCorasick, text: string): string[]
 }
 
 export const addon: IAddon = require('../native')
