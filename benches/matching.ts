@@ -7,7 +7,7 @@ import { Benchmark } from 'extra-benchmark'
 import path from 'path'
 
 const patternsFilename = path.join(__dirname, './patterns.txt')
-const sampleFilename = path.join(__dirname, './sample.txt')
+const samplesFilename = path.join(__dirname, './samples.txt')
 
 const benchmarkMatching = new Benchmark('Matching')
 
@@ -20,7 +20,7 @@ go(async () => {
     const scanner = new FastScanner(patterns)
 
     return async () => {
-      for await (const line of readFileLineByLine(sampleFilename)) {
+      for await (const line of readFileLineByLine(samplesFilename)) {
         if (scanner.search(line, { quick: true }).length > 0) {
           fastScanMatched++
         }
@@ -33,7 +33,7 @@ go(async () => {
     const ac = new AhoCorasick(patterns, { caseSensitive: true })
 
     return async () => {
-      for await (const line of readFileLineByLine(sampleFilename)) {
+      for await (const line of readFileLineByLine(samplesFilename)) {
         if (ac.isMatch(line)) {
           ahoCorasickMatched++
         }

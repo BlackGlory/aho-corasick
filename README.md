@@ -28,7 +28,15 @@ class AhoCorasick {
 ```
 
 ## Benchmark
-|                                 | Compilation | Matching | RSS     |
-|---------------------------------|-------------|----------|---------|
-| daachorse(charwise) from crates | 16ms        | 38ms     | 99.3 MB |
-| fastscan(quick) from npm        | 15ms        | 114ms    | 105 MB  |
+The patterns come from the title of the Chinese Wikipedia.
+The samples come from the text of the Chinese Wikipedia.
+
+|                | Compilation | Matching    |
+|----------------|-------------|-------------|
+| fastscan       | *1800 op/s* | 6.9 op/s    |
+| *aho-corasick* | 1735 op/s   | *13.9 op/s* |
+
+The results of the benchmark are relative values,
+which will change according to different patterns and samples.
+The currently patterns and samples are large,
+so the number of operations per second is small.

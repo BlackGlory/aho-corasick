@@ -34,7 +34,7 @@
     "build:ts:compile": "tsc --project tsconfig.build.json --module commonjs --target es2018 --outDir lib",
     "build:ts:patch": "tscpaths -p tsconfig.build.json -s ./src -o ./lib",
     "bench": "run-s bench:*",
-    "bench:building": "ts-node --require tsconfig-paths/register benches/building.ts",
+    "bench:compilation": "ts-node --require tsconfig-paths/register benches/compilation.ts",
     "bench:matching": "ts-node --require tsconfig-paths/register benches/matching.ts",
     "release": "standard-version"
   },
