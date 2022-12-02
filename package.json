@@ -33,7 +33,9 @@
     "build:ts": "run-s build:ts:*",
     "build:ts:compile": "tsc --project tsconfig.build.json --module commonjs --target es2018 --outDir lib",
     "build:ts:patch": "tscpaths -p tsconfig.build.json -s ./src -o ./lib",
-    "bench": "./benches/benchmark.sh",
+    "bench": "run-s bench:*",
+    "bench:building": "ts-node --require tsconfig-paths/register benches/building.ts",
+    "bench:matching": "ts-node --require tsconfig-paths/register benches/matching.ts",
     "release": "standard-version"
   },
   "husky": {
@@ -60,6 +62,8 @@
     "pretty-bytes": "5",
     "standard-version": "^9.5.0",
     "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.1",
     "tscpaths": "^0.0.9",
     "tslib": "^2.4.1",
     "typescript": "^4.9.3"
