@@ -4,9 +4,10 @@ import { FastScanner } from './fastscan'
 import { AhoCorasick } from '..'
 import { readFileLineByLine } from 'extra-filesystem'
 import { Benchmark } from 'extra-benchmark'
+import path from 'path'
 
-const patternsFilename = './patterns.txt'
-const sampleFilename = './sample.txt'
+const patternsFilename = path.join(__dirname, './patterns.txt')
+const sampleFilename = path.join(__dirname, './sample.txt')
 
 const benchmarkMatching = new Benchmark('Matching')
 

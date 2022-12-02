@@ -3,8 +3,9 @@ import { go } from '@blackglory/go'
 import { FastScanner } from './fastscan'
 import { AhoCorasick } from '..'
 import { Benchmark } from 'extra-benchmark'
+import path from 'path'
 
-const patternsFilename = './patterns.txt'
+const patternsFilename = path.join(__dirname, './patterns.txt')
 
 const benchmark = new Benchmark('Building')
 
