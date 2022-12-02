@@ -31,10 +31,10 @@ class AhoCorasick {
 The patterns come from the title of the Chinese Wikipedia.
 The samples come from the text of the Chinese Wikipedia.
 
-|                | Compilation | Matching    |
-|----------------|-------------|-------------|
-| fastscan       | *1800 op/s* | 6.9 op/s    |
-| *aho-corasick* | 1735 op/s   | *13.9 op/s* |
+|                  | Compilation   | Matching      |
+|------------------|---------------|---------------|
+| fastscan         | 2151 op/s     | 8.9 op/s      |
+| **aho-corasick** | **2162 op/s** | **15.9 op/s** |
 
 The results of the benchmark are relative values,
 which will change according to different patterns and samples.
