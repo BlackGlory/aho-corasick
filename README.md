@@ -33,8 +33,8 @@ The samples come from the text of the Chinese Wikipedia.
 
 |                  | Compilation   | Matching      |
 |------------------|---------------|---------------|
-| fastscan         | 2117 op/s     | 8.6 op/s      |
-| **aho-corasick** | **2066 op/s** | **15.9 op/s** |
+| fastscan         | 2151 op/s     | 8.9 op/s      |
+| **aho-corasick** | **2162 op/s** | **15.9 op/s** |
 
 The results of the benchmark are relative values,
 which will change according to different patterns and samples.
