@@ -1,5 +1,6 @@
 use daachorse::charwise::CharwiseDoubleArrayAhoCorasick as DoubleArrayAhoCorasick;
 use neon::prelude::*;
+use rayon::prelude::*;
 
 struct NativeAhoCorasick {
     ac: DoubleArrayAhoCorasick<u8>,
@@ -32,7 +33,7 @@ fn aho_corasick_create(mut cx: FunctionContext) -> JsResult<JsBox<NativeAhoCoras
 
     if !case_sensitive {
         patterns = patterns
-            .into_iter()
+            .par_iter()
             .map(|x| x.to_lowercase())
             .collect();
     }
@@ -73,15 +74,17 @@ fn aho_corasick_find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
     let text = cx.argument::<JsString>(1)?;
     let text = js_string_to_string(&mut cx, text)?;
 
-    let mut matches = vec![];
+    let mut matches: Vec<&str>;
     if case_sensitive {
-        for mat in ac.find_overlapping_iter(&text) {
-            matches.push(&text[mat.start()..mat.end()]);
-        }
+        matches = ac.find_overlapping_iter(&text)
+            .par_bridge()
+            .map(|mat| &text[mat.start()..mat.end()])
+            .collect();
     } else {
-        for mat in ac.find_overlapping_iter(&text.to_lowercase()) {
-            matches.push(&text[mat.start()..mat.end()]);
-        }
+        matches = ac.find_overlapping_iter(text.to_lowercase())
+            .par_bridge()
+            .map(|mat| &text[mat.start()..mat.end()])
+            .collect();
     }
     matches.sort_unstable();
     matches.dedup();
