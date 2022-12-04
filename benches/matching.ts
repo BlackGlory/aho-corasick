@@ -10,7 +10,7 @@ import path from 'path'
 const patternsFilename = path.join(__dirname, './patterns.txt')
 const samplesFilename = path.join(__dirname, './samples.txt')
 
-const benchmarkMatching = new Benchmark('Matching')
+const benchmark = new Benchmark('Matching')
 
 go(async () => {
   const text = await fs.readFile(patternsFilename, 'utf-8')
@@ -19,7 +19,7 @@ go(async () => {
   const samples = await toArrayAsync(readFileLineByLine(samplesFilename))
 
   let fastScanMatched = 0
-  benchmarkMatching.addCase('fastscan', () => {
+  benchmark.addCase('fastscan', () => {
     const scanner = new FastScanner(patterns)
     const options = { quick: true }
 
@@ -33,7 +33,7 @@ go(async () => {
   })
 
   let ahoCorasickMatched = 0
-  benchmarkMatching.addCase('aho-corasick', () => {
+  benchmark.addCase('aho-corasick', () => {
     const ac = new AhoCorasick(patterns, { caseSensitive: true })
 
     return () => {
@@ -45,8 +45,8 @@ go(async () => {
     }
   })
 
-  console.log(`Benchmark: ${benchmarkMatching.name}`)
-  for await (const result of benchmarkMatching.run()) {
+  console.log(`Benchmark: ${benchmark.name}`)
+  for await (const result of benchmark.run()) {
     console.log(result)
   }
   console.log(`fastscan matched: ${fastScanMatched}`)
