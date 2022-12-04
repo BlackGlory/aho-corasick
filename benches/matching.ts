@@ -4,6 +4,7 @@ import { FastScanner } from './fastscan'
 import { AhoCorasick } from '..'
 import { readFileLineByLine } from 'extra-filesystem'
 import { Benchmark } from 'extra-benchmark'
+import { toArrayAsync } from 'iterable-operator'
 import path from 'path'
 
 const patternsFilename = path.join(__dirname, './patterns.txt')
@@ -15,13 +16,16 @@ go(async () => {
   const text = await fs.readFile(patternsFilename, 'utf-8')
   const patterns = text.split('\n').filter(x => !!x)
 
+  const samples = await toArrayAsync(readFileLineByLine(samplesFilename))
+
   let fastScanMatched = 0
   benchmarkMatching.addCase('fastscan', () => {
     const scanner = new FastScanner(patterns)
+    const options = { quick: true }
 
-    return async () => {
-      for await (const line of readFileLineByLine(samplesFilename)) {
-        if (scanner.search(line, { quick: true }).length > 0) {
+    return () => {
+      for (const line of samples) {
+        if (scanner.search(line, options).length > 0) {
           fastScanMatched++
         }
       }
@@ -32,8 +36,8 @@ go(async () => {
   benchmarkMatching.addCase('aho-corasick', () => {
     const ac = new AhoCorasick(patterns, { caseSensitive: true })
 
-    return async () => {
-      for await (const line of readFileLineByLine(samplesFilename)) {
+    return () => {
+      for (const line of samples) {
         if (ac.isMatch(line)) {
           ahoCorasickMatched++
         }
