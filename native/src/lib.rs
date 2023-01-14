@@ -73,18 +73,22 @@ fn aho_corasick_find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
     let text = cx.argument::<JsString>(1)?;
     let text = js_string_to_string(&mut cx, text)?;
 
-    let mut matches = vec![];
-    if case_sensitive {
-        for mat in ac.find_overlapping_iter(&text) {
-            matches.push(&text[mat.start()..mat.end()]);
-        }
-    } else {
-        for mat in ac.find_overlapping_iter(&text.to_lowercase()) {
-            matches.push(&text[mat.start()..mat.end()]);
-        }
-    }
-    matches.sort_unstable();
-    matches.dedup();
+    let matches = {
+        let temp_text = if case_sensitive {
+            text.clone()
+        } else {
+            text.clone().to_lowercase()
+        };
+
+        let mut matches = ac.find_overlapping_iter(temp_text)
+            .into_iter()
+            .map(|mat| { &text[mat.start()..mat.end()] })
+            .collect::<Vec<_>>();
+
+        matches.sort_unstable();
+        matches.dedup();
+        matches
+    };
 
     let js_array = vec_string_to_js_array(&mut cx, matches)?;
 
@@ -96,6 +100,7 @@ fn vec_string_to_js_array<'a>(
     list: Vec<&str>
 ) -> NeonResult<Handle<'a, JsArray>> {
     let result = JsArray::new(cx, list.len() as u32);
+
     for (i, val) in list.into_iter().enumerate() {
         let js_string = cx.string(val);
         result.set(cx, i as u32, js_string)?;
