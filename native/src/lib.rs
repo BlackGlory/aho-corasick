@@ -1,5 +1,6 @@
 use daachorse::charwise::CharwiseDoubleArrayAhoCorasick as DoubleArrayAhoCorasick;
 use neon::prelude::*;
+use rayon::prelude::*;
 
 struct NativeAhoCorasick {
     ac: DoubleArrayAhoCorasick<u8>,
@@ -32,7 +33,7 @@ fn aho_corasick_create(mut cx: FunctionContext) -> JsResult<JsBox<NativeAhoCoras
 
     if !case_sensitive {
         patterns = patterns
-            .into_iter()
+            .into_par_iter()
             .map(|x| x.to_lowercase())
             .collect();
     }
@@ -59,7 +60,9 @@ fn aho_corasick_is_match(mut cx: FunctionContext) -> JsResult<JsBoolean> {
         text = text.to_lowercase();
     }
 
-    let result: bool = ac.find_overlapping_iter(&text).next().is_some();
+    let result: bool = ac.find_overlapping_iter(&text)
+        .next()
+        .is_some();
 
     Ok(cx.boolean(result))
 }
@@ -81,11 +84,11 @@ fn aho_corasick_find_all(mut cx: FunctionContext) -> JsResult<JsArray> {
         };
 
         let mut matches = ac.find_overlapping_iter(temp_text)
-            .into_iter()
+            .par_bridge()
             .map(|mat| { &text[mat.start()..mat.end()] })
             .collect::<Vec<_>>();
 
-        matches.sort_unstable();
+        matches.par_sort_unstable();
         matches.dedup();
         matches
     };
