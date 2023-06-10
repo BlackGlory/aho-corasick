@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.26](https://github.com/BlackGlory/aho-corasick/compare/v0.1.25...v0.1.26) (2023-06-10)
+
+
+### Bug Fixes
+
+* export src ([4d1611b](https://github.com/BlackGlory/aho-corasick/commit/4d1611b354e7b6ba4a09285444fd060e5bf95b04))
+
 ### [0.1.25](https://github.com/BlackGlory/aho-corasick/compare/v0.1.24...v0.1.25) (2023-01-19)
 
 ### [0.1.24](https://github.com/BlackGlory/aho-corasick/compare/v0.1.23...v0.1.24) (2023-01-14)
