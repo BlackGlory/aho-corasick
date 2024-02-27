@@ -102,7 +102,7 @@ fn vec_string_to_js_array<'a>(
     cx: &mut FunctionContext<'a>,
     list: Vec<&str>
 ) -> NeonResult<Handle<'a, JsArray>> {
-    let result = JsArray::new(cx, list.len() as u32);
+    let result = JsArray::new(cx, list.len());
 
     for (i, val) in list.into_iter().enumerate() {
         let js_string = cx.string(val);
