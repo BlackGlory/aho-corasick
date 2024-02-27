@@ -1,6 +1,6 @@
 {
   "name": "@blackglory/aho-corasick",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "A simple Node.js wrapper for Rust's aho-corasick package",
   "keywords": [
     "aho-corasick",

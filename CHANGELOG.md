@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.27](https://github.com/BlackGlory/aho-corasick/compare/v0.1.26...v0.1.27) (2024-02-27)
+
+
+### Bug Fixes
+
+* **rust:** the generic type of `DoubleArrayAhoCorasick` ([c92a1e9](https://github.com/BlackGlory/aho-corasick/commit/c92a1e93aa1d8ea63913ac3e745b3a7aa31b7701))
+
 ### [0.1.26](https://github.com/BlackGlory/aho-corasick/compare/v0.1.25...v0.1.26) (2023-06-10)
 
 
