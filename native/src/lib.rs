@@ -3,7 +3,7 @@ use neon::prelude::*;
 use rayon::prelude::*;
 
 struct NativeAhoCorasick {
-    ac: DoubleArrayAhoCorasick<u8>,
+    ac: DoubleArrayAhoCorasick<usize>,
     case_sensitive: bool,
 }
 
